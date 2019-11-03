@@ -5,7 +5,7 @@ Games "Santa Paravia" and "Hamurabi"
 
 Python Port of anicent computer game for TRS-80
 
-&copy; 1984 - 2019 Andreas Grimm, Use according to the included licence file (LICENSE.md)
+&copy; 2019 Andreas Grimm, Use according to the included licence file (LICENSE.md)
 
 ---  
 
