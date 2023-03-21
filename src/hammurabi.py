@@ -14,7 +14,9 @@
 #
 # Basic version of the game: https://www.atariarchives.org/basicgames/showpage.php?page=79
 import random
+
 from infrastructure import common
+
 
 _POPULATION_DEFAULT_  = 100
 _LAND_DEFAULT_ = 1000
