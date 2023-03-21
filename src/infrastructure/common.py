@@ -4,6 +4,7 @@
 
 import logging, datetime
 
+
 class Numbers():
     # This static method ensures that a number has been entered, not a string. The function will only terminate if a number was entered...
     @staticmethod

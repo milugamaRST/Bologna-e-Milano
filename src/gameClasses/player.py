@@ -2,8 +2,10 @@
 # Paravia
 #
 
-from infrastructure import common
 import random
+
+from infrastructure import common
+
 
 class Player():
     def __init__(self, name, gender):
