@@ -43,8 +43,8 @@ class Player():
         self.ratsAte = 0
         self.treasury = 1000
 
-        self.maleTitles = ["Sir", "Baron", "Count", "Marquis", "Duke", "Grand Duke", "Prince", "* H.R.H. King"]
-        self.femaleTitles = ["Lady", "Baroness", "Countess", "Marquise", "Duchess", "Grand Duchess", "Princess", "* H.R.H. Queen"]
+        self.maleTitles = ["Senhor", "Barão", "Conde", "Marquês", "Duque", "Grão Duque", "Príncipe", "* H.R.H. Rei"]
+        self.femaleTitles = ["Senhora", "Baronesa", "Condessa", "Marquesa", "Duquesa", "Gran Duquesa", "Princesa", "* H.R.H. Rainha"]
 
     # getTitle
     # get gender specific titles
@@ -80,7 +80,7 @@ class Player():
         self.land -= landTaken
         opponent.land += landTaken
         
-        print("\a\n{} {} of {} invades and seizes {:2f} hectares of land!\n".format(opponent.getTitle(), opponent.name, opponent.city, landTaken))
+        print("\a\n{} {} of {} invadiu e tomou {:2f} hectares de terra!\n".format(opponent.getTitle(), opponent.name, opponent.city, landTaken))
         
         deadSoldiers = random.randint(0, 40)
         
@@ -179,7 +179,7 @@ class Player():
             if self.title >= 7:
                 self.iWon = True
 
-            print("\aGood news! " + self.name + " has achieved the rank of " + self.getTitle() + "\n\n")
+            print("\aBoas notícias! " + self.name + " alcançou o posto de " + self.getTitle() + "\n\n")
             return True
         
         self.title = self.oldTitle
@@ -194,7 +194,7 @@ class Player():
     
     def generateIncome(self):
         self.justiceRevenue = (self.justice * 300 - 500) * self.title
-        justiceLevel = ["---","Very Fair","Moderate","Harsh","Outrageous"]
+        justiceLevel = ["---","Muito justa","Moderada","Severa","Ultrajante"]
     
         revenueBase = 150.0 - float(self.salesTax - self.customsDuty - self.incomeTax)
         
@@ -218,8 +218,8 @@ class Player():
     
         revenues = self.customsDutyRevenue + self.salesTaxRevenue + self.incomeTaxRevenue + self.justiceRevenue
         
-        print("State revenues {:.0f} gold florins.\n".format(revenues))
-        print("Customs Duty\tSales Tax\tIncome Tax\tJustice\n");
+        print("Receitas do estado {:.0f} florins.\n".format(revenues))
+        print("Tacas aduaneiras\tTaxa de vendas\tImposto de Renda\tJustiça\n");
         print("{:>10.2f}\t{:>10.2f}\t{:>10.2f}\t{:>10.2f} ({})\n".format(self.customsDutyRevenue, self.salesTaxRevenue, self.incomeTaxRevenue, self.justiceRevenue, justiceLevel[self.justice]))
 
     
@@ -297,9 +297,9 @@ class Player():
         maximumGrain = float(self.grainReserve) - minimumGrain
         
         while isOK == False:
-            print("How much grain will you release for consumption?");
+            print("Quanto grão você vai liberar para consumo?");
             
-            query = "1 = Minimum ({:.2f}), 2 = Maximum({:.2f}), or enter a value: ".format(minimumGrain, maximumGrain)
+            query = "1 = Mínimo ({:.2f}), 2 = Máximo({:.2f}), ou informe um valor: ".format(minimumGrain, maximumGrain)
             howMuch = common.Numbers.inputInt(query)
             
             if howMuch == 1:
@@ -310,11 +310,11 @@ class Player():
                 
             # Are we being a Scrooge?
             if (howMuch + 1) < minimumGrain:
-                print("You must release at least 20 % of your reserves.")
+                print("Você deve liberar pelo menos 20% das reservas.")
                 
             # Whoa. Slow down there son. */
             elif (howMuch - 1) > maximumGrain:
-                print("You must keep at least 20%.")
+                print("Você deve manter 20%.")
                 
             else:
                 isOK = True
@@ -384,7 +384,7 @@ class Player():
                 self.transplantedSerfs = int(z)
                 self.serfs = self.serfs + self.transplantedSerfs
                 
-                print("{} serfs move to the city".format(self.transplantedSerfs))
+                print("{} servos se mudaram para a cidade".format(self.transplantedSerfs))
                 
                 zp = float(z)
                 z = float(zp) * random.random()
@@ -401,26 +401,26 @@ class Player():
             self.justiceRevenue = random.randint(0,self.justiceRevenue)
             self.serfs -= self.justiceRevenue
             self.fleeingSerfs = self.justiceRevenue
-            print("{} serfs flee harsh justice\n".format(self.fleeingSerfs))
+            print("{} servos fugiram por causa da justiça severa\n".format(self.fleeingSerfs))
 
         self.marketRevenue = self.marketplaces * 75;
         
         if self.marketRevenue > 0:
             self.treasury  += self.marketRevenue
-            print("Your market earned {} florins.".format(self.marketRevenue))
+            print("Seus mercado renderam {} florins.".format(self.marketRevenue))
 
         self.millRevenue = self.mills * (55 + random.randint(0,250))
         
         if self.millRevenue > 0:
             self.treasury += self.millRevenue
-            print("Your woolen mill earned  {} florins.".format(self.millRevenue))
+            print("Suas fábricas de lã renderam {} florins.".format(self.millRevenue))
 
         self.soldierPay = self.soldiers * 3
         self.treasury -= self.soldierPay
         
-        print("You paid your soldiers {} florins.".format(self.soldierPay))
-        print("You have {} serfs in your city.".format(self.serfs))
-        input("(Press ENTER): ")
+        print("Você gastou com o exército {} florins.".format(self.soldierPay))
+        print("Você tem {} servos na sua cidade.".format(self.serfs))
+        input("(Pressione ENTER): ")
         
         if (self.land / 1000) > self.soldiers:
             self.invadeMe = True
@@ -442,9 +442,9 @@ class Player():
 
     
     def sellGrain(self):
-        howMuch = common.Numbers.inputInt("How much grain do you want to sell? ")
+        howMuch = common.Numbers.inputInt("Quanto grão você quer vender? ")
         if howMuch > self.grainReserve:
-            print("You don't have it.")
+            print("Você não tem grão suficiente.")
             return
 
         self.treasury += (howMuch * self.grainPrice / 1000)
@@ -453,7 +453,7 @@ class Player():
     
     def sellLand(self, amount):
         if amount > (self.land - 5000):
-            print("You can't sell that much")
+            print("Você não pode vender tanto grão.")
             return
 
         self.land -= amount
@@ -468,7 +468,7 @@ class Player():
         self.deadSerfs = int((float(random.randint(0, absc) + ordx)) * (float(self.serfs) / 100.0))
         self.serfs -= self.deadSerfs
         
-        print("{0:.0f} serfs died this year.\n".format(self.deadSerfs))
+        print("{0:.0f} morreram esse ano.\n".format(self.deadSerfs))
 
     
     def serfsProcreating(self, procreationBase):
@@ -479,7 +479,7 @@ class Player():
         self.newSerfs = int((float(random.randint(0, absc) + ordx)) * (float(self.serfs) / 100.0))
         self.serfs += self.newSerfs
         
-        print("{0:.0f} serfs born this year.\n".format(self.newSerfs))
+        print("{0:.0f} servo nasceram nesse ano.\n".format(self.newSerfs))
     
     
     def adjustTax(self):
@@ -490,24 +490,24 @@ class Player():
             self.generateIncome()
             
             print("({:>10.2f}%)\t({:>10.2f}%)\t({:>10.2f}%)".format(self.customsDuty, self.salesTax, self.incomeTax))
-            print("\n1. Customs Duty, 2. Sales Tax, 3. Wealth Tax, 4. Justice\n")
-            taxNumber = input("Enter tax number for changes, q to continue: ")
+            print("\n1. Imposto Anuaneiro, 2. Taxa de Vendas, 3. Imposto sobre Riqueza, 4. Justiça\n")
+            taxNumber = input("Escolhe uma opção, ou q para continuar: ")
             if taxNumber == '1':
-                duty = common.Numbers.inputInt("New customs duty (0 to 100): ")
+                duty = common.Numbers.inputInt("Novo imposto aduaneiro (0 a 100): ")
                 if duty > 100:
                     duty = 100
                 if duty < 0:
                     duty = 0
                 self.customsDuty = duty
             elif taxNumber == '2':
-                duty = common.Numbers.inputInt("New sales tax (0 to 50): ")
+                duty = common.Numbers.inputInt("Nova taxa de vendas (0 a 50): ")
                 if duty > 50:
                     duty = 50
                 if duty < 0:
                     duty = 0
                 self.salesTax = duty
             elif taxNumber == '3':
-                duty = common.Numbers.inputInt("New wealth tax (0 to 25): ")
+                duty = common.Numbers.inputInt("Novo imposto sobre riqueza (0 a 25): ")
                 if duty > 25:
                     duty = 25
                 if duty < 0:
@@ -523,7 +523,7 @@ class Player():
                         duty = 1
                     self.justice = duty;
                 except ValueError:
-                    print("You did not enter correctly. The value is not changed")
+                    print("Você não digitou corretamente. O valor não foi alterado.")
         
         self.addRevenue()
         
