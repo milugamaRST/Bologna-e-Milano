@@ -1,27 +1,27 @@
 #
 # paravia.py
 #
-# /******************************************************************************
-# **                                                                          **
-# ** Santa Paravia & Fiumaccio. Translated from the original TRS-80 BASIC     **
-# ** source code into C by Thomas Knox <tknox@mac.com>.                       **
-# ** adopted to Python by Andreas Grimm <andreas.grimm@gricom.eu              **
-# **                                                                          **
-# ** Original program (C) 1979 by George Blank                                **
-# ** <gwblank@postoffice.worldnet.att.net>                                    **
-# **                                                                          **
-# ******************************************************************************
+# /**********************************************************************************
+# **                                                                               **
+# ** Santa Paravia & Fiumaccio. Traduzido do código fonte original do TRS-80 BASIC **
+# ** para C por Thomas Knox <tknox@mac.com>.                                       **
+# ** adaptado para Python por Andreas Grimm <andreas.grimm@gricom.eu               **
+# **                                                                               **
+# ** Programa original (C) 1979 por George Blank                                   **
+# ** <gwblank@postoffice.worldnet.att.net>                                         **
+# **                                                                               **
+# ***********************************************************************************
 #
 # Copyright (C) 2000 Thomas Knox
 #
-# Portions Copyright (C) 1979 by George Blank, used with permission. This program is 
-# free software; you can redistribute it and/or modify it under the terms of the 
-# GNU General Public License as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version. This program is distributed 
-# in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the 
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details. You should have received a copy of 
-# the GNU General Public License along with this program; if not, write to the Free 
+# Partes Copyright (C) 1979 por George Blank, usado com permissão. Este programa é
+# software livre; você pode redistribuí-lo e/ou modificá-lo sob os termos da
+# Licença Pública Geral GNU como publicada pela Free Software Foundation; seja a versão 2
+# da Licença, ou (a seu critério) qualquer versão posterior. Este programa é distribuído
+# na esperança de que seja útil, mas SEM QUALQUER GARANTIA; sem mesmo a garantia
+# implícita de COMERCIALIZAÇÃO ou ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Veja a
+# Licença Pública Geral GNU para mais detalhes. Você deve ter recebido uma cópia da
+# Licença Pública Geral GNU junto com este programa; se não, escreva para a Free
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 # Thomas Knox
 # tknox@mac.com
@@ -36,22 +36,24 @@ players = []
 
 
 def instructions():
-    print("Santa Paravia and Fiumaccio\n")
+    print("Santa Paravia e Fiumaccio\n")
     print(
-        "You are the ruler of a 15th century Italian city state. If you rule well, you will receive higher titles. The")
+        "Você é o governante de uma cidade-estado italiana do século XV. Se governar bem, receberá títulos mais altos. O primeiro")
     print(
-        "first player to become king or queen wins. Life expectancy then was brief, so you may not live long enough to win.")
+        "jogador a se tornar rei ou rainha vence. A expectativa de vida naquela época era breve, então você pode não viver")
     print(
-        "The computer will draw a map of your state. The size of the area in the wall grows as you buy more land. The")
+        "tempo suficiente para vencer. O computador irá desenhar um mapa do seu estado. O tamanho da área dentro da muralha")
     print(
-        "size of the guard tower in the upper left corner shows the adequacy of your defenses. If it shrinks, equip more")
+        "cresce à medida que você compra mais terras. O tamanho da torre de guarda no canto superior esquerdo mostra a")
     print(
-        "soldiers! If the horse and plowman is touching the top of the wall, all your land is in production. Otherwise you need more")
+        "adequação de suas defesas. Se ela diminuir, equipe mais soldados! Se o cavalo e o lavrador estiverem tocando o topo")
     print(
-        "serfs, who will migrate to your state if you distribute more grain than the minimum demand. If you distribute less")
+        "da muralha, toda a sua terra está em produção. Caso contrário, você precisa de mais servos, que migrarão para o seu")
     print(
-        "grain, some of your people will starve, and you will have a high death rate. High taxes raise money, but slow down")
-    input("economic growth.\n\n(Press ENTER to begin game)")
+        "estado se você distribuir mais grãos do que a demanda mínima. Se você distribuir menos grãos, algumas pessoas")
+    print(
+        "irão morrer de fome e você terá uma alta taxa de mortalidade. Altos impostos aumentam o dinheiro, mas")
+    input("retardam o crescimento econômico.\n\n(Pressione ENTER para começar o jogo)")
 
 
 def playGame():
@@ -71,46 +73,46 @@ def playGame():
 
         for currentPlayer in players:
             if currentPlayer.iWon == True:
-                print("Game Over. " + currentPlayer.getTitle() + " " + currentPlayer.name + " wins.")
+                print("Fim de Jogo. " + currentPlayer.getTitle() + " " + currentPlayer.name + " vence.")
                 return
 
         if allDead == True:
-            print("The game has ended.\n");
+            print("O jogo terminou.\n");
             break
 
 
 def isDead(currentPlayer):
-    print("\n\nVery sad news.\n" + currentPlayer.title + currentPlayer.name + " has just died")
+    print("\n\nNotícias muito tristes.\n" + currentPlayer.title + currentPlayer.name + " acabou de morrer")
 
     if currentPlayer.year > 1450:
-        print("of old age after a long reign.\n")
+        print("de velhice após um longo reinado.\n")
     else:
         why = random.randint(0, 8)
         deathReason = {
             0: "",
             1: "",
             2: "",
-            3: "of pneumonia after a cold winter in a drafty castle.",
-            4: "of typhoid after drinking contaminated water.",
-            5: "in a smallpox epidemic.",
-            6: "after being attacked by robbers while travelling.",
+            3: "de pneumonia após um inverno frio em um castelo com muitas correntes de ar.",
+            4: "de febre tifoide após beber água contaminada.",
+            5: "em uma epidemia de varíola.",
+            6: "após ser atacado por ladrões durante uma viagem.",
             7: "",
-            8: "of food poisoning."
+            8: "de intoxicação alimentar."
         }
         print(deathReason[why])
 
     currentPlayer.isDead = True
 
-    input("\n(Press ENTER): ")
+    input("\n(Pressione ENTER): ")
 
 
 def printGrain(harvest):
     harvestRating = {
-        1: "Drought. Famine Threatens. ",
-        2: "Bad Weather. Poor Harvest. ",
-        3: "Normal Weather. Average Harvest. ",
-        4: "Good Weather. Fine Harvest. ",
-        5: "Excellent Weather. Great Harvest! "
+        1: "Estiagem. Ameaça de Fome. ",
+        2: "Mau Tempo. Colheita Fraca. ",
+        3: "Tempo Normal. Colheita Média. ",
+        4: "Bom Tempo. Boa Colheita. ",
+        5: "Tempo Excelente. Ótima Colheita! "
     }
     print(harvestRating[int(harvest)])
 
@@ -118,69 +120,78 @@ def printGrain(harvest):
 def buySellGrain(currentPlayer):
     finished = False
     while (finished == False):
-        print("\nYear " + str(currentPlayer.year))
+        print("\n==================================================================================================\n")
+        print("\nAno " + str(currentPlayer.year))
         print("\n" + currentPlayer.getTitle() + " " + currentPlayer.name)
-        print("\nRats ate " + str(currentPlayer.rats) + "% of your grain reserves. ({0:.2f} steres)".format(
+        print("\nRatos comeram " + str(currentPlayer.rats) + "% de suas reservas de grãos. ({0:.0f} steres)".format(
             currentPlayer.ratsAte))
         printGrain(currentPlayer.harvest)
-        print("\nGrain\t\tGrain\t\tPrice of\tPrice of\tTreasury")
-        print("Reserve\t\tDemand\t\tGrain\t\tLand\n")
+    
+        print (f"Reserva de grãos: {currentPlayer.grainReserve:.0f} steres.")
+        mensagem=f"Demanda de grãos: {currentPlayer.grainDemand:.0f} steres. {"Boa reserva! Temos alimento suficiente para o povo." if currentPlayer.grainDemand<currentPlayer.grainReserve*.8 else "Teremos fome!❌"}"
+        print (f"{mensagem}")
+        print (f"Preço do grão: {currentPlayer.grainPrice:.2f} /1000 steres.")
+        print (f"Preço da terra: {currentPlayer.landPrice:.2f} /hectare.")
+        print (f"Saldo do tesouro: {currentPlayer.treasury:.0f} florins.")
+
+        print("\nReserva de\t\tDemanda de\t\tPreço do\t\tPreço do\t\tTesouro")
+        print("Grãos\t\tGrãos\t\tGrão\t\tTerreno\n")
         print(" {0:>10.2f}\t{1:>10.2f}\t{2:>10.2f}\t\t{3:>4.2f}\t\t{4:>4.2f}\n".format(currentPlayer.grainReserve,
                                                                                        currentPlayer.grainDemand,
                                                                                        currentPlayer.grainPrice,
                                                                                        currentPlayer.landPrice,
                                                                                        currentPlayer.treasury))
-        print("steres\t\tsteres\t\t1000 st.\thectare\t\tgold florins\n")
-        print("\nYou have " + str(currentPlayer.land) + " hectares of land.")
-        print("\n1. Buy grain, 2. Sell grain, 3. Buy land, 4. Sell land ")
+        print("steres\t\tsteres\t\t1000 st.\thectare\t\tflorins de ouro\n")
+        print("\nVocê tem " + str(currentPlayer.land) + " hectares de terra.")
+        print("\n1. Comprar grãos, 2. Vender grãos, 3. Comprar terras, 4. Vender terras ")
 
-        select = input("(Enter q to continue):")
+        select = input("(Pressione q para continuar):")
         if select == 'q':
             finished = True
 
         if select == '1':
-            amount = common.Numbers.inputInt("How much grain do you want to buy (0 to specify a total)? ")
+            amount = common.Numbers.inputInt("Quantos grãos você deseja comprar (0 para especificar um total)? ")
             if amount == 0:
-                amount = int(input("How much total grain do you wish? "))
+                amount = int(input("Qual o total de grãos que você deseja? "))
                 amount = amount - currentPlayer.grainReserve
             if amount < 0:
-                print("Invalid total amount.\n")
+                print("Quantidade total inválida.\n")
                 return
             currentPlayer.buyGrain(amount)
 
         if select == '2':
-            amount = common.Numbers.inputInt("How much grain do you want to sell (0 to specify a total)? ")
+            amount = common.Numbers.inputInt("Quantos grãos você deseja vender (0 para especificar um total)? ")
             if amount == 0:
-                amount = int(input("How much total grain do you wish? "))
+                amount = int(input("Qual o total de grãos que você deseja? "))
                 amount = currentPlayer.grainReserve - amount
             if amount < 0:
-                print("Invalid total amount.\n")
+                print("Quantidade total inválida.\n")
                 return
             currentPlayer.sellGrain(amount)
 
         if select == '3':
-            amount = common.Numbers.inputInt("How much land do you want to buy (0 to specify a total)? ")
+            amount = common.Numbers.inputInt("Quantas terras você deseja comprar (0 para especificar um total)? ")
             if amount == 0:
-                amount = int(input("How much total land do you wish? "))
+                amount = int(input("Qual o total de terras que você deseja? "))
                 amount = amount - currentPlayer.land
             if amount < 0:
-                print("Invalid total amount.\n")
+                print("Quantidade total inválida.\n")
                 return
             currentPlayer.buyLand(amount)
 
         if select == '4':
-            amount = common.Numbers.inputInt("How much land do you want to sell (0 to specify a total)? ")
+            amount = common.Numbers.inputInt("Quantas terras você deseja vender (0 para especificar um total)? ")
             if amount == 0:
-                amount = int(input("How much total land do you wish? "))
+                amount = int(input("Qual o total de terras que você deseja? "))
                 amount = currentPlayer.land - amount
             if amount < 0:
-                print("Invalid total amount.\n")
+                print("Quantidade total inválida.\n")
                 return
             currentPlayer.sellLand(amount)
 
 
 def showStats():
-    print("    Nobles\t   Soldiers\t    Clergy\t Merchants\t     Serfs\t      Land\t  Treasury\n")
+    print("    Nobres\t   Soldados\t    Clero\t Comerciantes\t     Servos\t      Terra\t  Tesouro\n")
     for x in players:
         print("\n" + x.getTitle() + " " + x.name)
         print("{0:>10.2f}\t{1:>10.2f}\t{2:>10.0f}\t{3:>10.0f}\t{4:10.0f}\t{5:10.0f}\t{6:>10.2f}\n".format(x.nobles,
@@ -190,21 +201,21 @@ def showStats():
                                                                                                           x.serfs,
                                                                                                           x.land,
                                                                                                           x.treasury))
-        input("\n(Press ENTER): ")
+        input("\n(Pressione ENTER): ")
 
 
 def statePurchases(currentPlayer):
     choice = ""
     while choice != 'q':
-        print("\n\n" + currentPlayer.getTitle() + " " + currentPlayer.name + "\nState purchases.")
-        print("1. Marketplace ({0:.2f})\t\t\t\t1000 florins\n".format(currentPlayer.marketplaces))
-        print("2. Woolen mill ({0:.2f})\t\t\t\t2000 florins\n".format(currentPlayer.mills))
-        print("3. Palace (partial) ({0:.2f})\t\t\t3000 florins\n".format(currentPlayer.palace))
-        print("4. Cathedral (partial) ({0:.2f})\t\t\t5000 florins\n".format(currentPlayer.cathedral))
-        print("5. Equip one platoon of serfs as soldiers\t500 florins\n")
-        print("\nYou have {0:.2f} gold florins.\n".format(currentPlayer.treasury))
-        print("\nTo continue, enter q. To compare standings, enter 6\n");
-        choice = input("Your choice: ")
+        print("\n\n" + currentPlayer.getTitle() + " " + currentPlayer.name + "\nCompras do Estado.")
+        print("1. Mercado ({0:.2f})\t\t\t\t1000 florins\n".format(currentPlayer.marketplaces))
+        print("2. Moinho de lã ({0:.2f})\t\t\t\t2000 florins\n".format(currentPlayer.mills))
+        print("3. Palácio (parcial) ({0:.2f})\t\t\t3000 florins\n".format(currentPlayer.palace))
+        print("4. Catedral (parcial) ({0:.2f})\t\t\t5000 florins\n".format(currentPlayer.cathedral))
+        print("5. Equipar um pelotão de servos como soldados\t500 florins\n")
+        print("\nVocê tem {0:.2f} florins de ouro.\n".format(currentPlayer.treasury))
+        print("\nPara continuar, pressione q. Para comparar pontuações, pressione 6\n");
+        choice = input("Sua escolha: ")
         if choice == "1":
             currentPlayer.buyMarket()
         elif choice == "2":
@@ -225,6 +236,8 @@ def newTurn(currentPlayer, evilBaron):
     buySellGrain(currentPlayer)
     currentPlayer.releaseGrain()
 
+    print ("=========================================================================")
+
     attacked = False
     if currentPlayer.invadeMe == True:
         for opponent in players:
@@ -241,9 +254,9 @@ def newTurn(currentPlayer, evilBaron):
     # if the player is bankrupt, seize the assets
     if currentPlayer.isBankrupt == True:
         currentPlayer.seizeAssets()
-        print("\n" + + currentPlayer.getTitle() + " " + currentPlayer.name + " is bankrupt.")
-        print("\nCreditors have seized much of your assets.")
-        input("(Press ENTER): ")
+        print("\n" + + currentPlayer.getTitle() + " " + currentPlayer.name + " está falido.")
+        print("\nCredores confiscaram muitos de seus bens.")
+        input("(Pressione ENTER): ")
 
     # DrawMap(Me);
     statePurchases(currentPlayer)
@@ -260,21 +273,21 @@ def newTurn(currentPlayer, evilBaron):
 def main():
     try:
         # Start the game
-        print("Santa Paravia and Fiumaccio\n\n")
-        answer = input("Do you wish instructions (Y or N)? ")
+        print("Santa Paravia e Fiumaccio\n\n")
+        answer = input("Deseja instruções (S ou N)? ")
 
-        if answer == 'y' or answer == 'Y':
+        if answer == 's' or answer == 'S':
             instructions()
 
-        numOfPlayers = int(input("How many people want to play (1 to 6)? "))
+        numOfPlayers = int(input("Quantas pessoas querem jogar (1 a 6)? "))
 
         if numOfPlayers < 1 or numOfPlayers > 6:
-            print("Thanks for playing.\n")
+            print("Obrigado por jogar.\n")
             return
 
-        print("\nWhat will be the difficulty of this game:\n\n1. Apprentice")
-        print("2. Journeyman\n3. Master\n4. Grand Master\n")
-        level = int(input("Choose: "))
+        print("\nQual será a dificuldade deste jogo:\n\n1. Aprendiz")
+        print("2. Jornaleiro\n3. Mestre\n4. Grão-Mestre\n")
+        level = int(input("Escolha: "))
 
         if level < 1:
             level = 1
@@ -283,11 +296,11 @@ def main():
             level = 4
 
         for counter in range(numOfPlayers):
-            name = input("Who is the ruler of " + cityList[counter] + "? ")
+            name = input("Quem é o governante de " + cityList[counter] + "? ")
             name = name.rstrip()
 
-            genderAnswer = input("Is " + name + " a man or a woman (M or F)? ")
-            if genderAnswer == 'm' or genderAnswer == 'M':
+            genderAnswer = input("" + name + " é um homem ou uma mulher (H ou M)? ")
+            if genderAnswer == 'h' or genderAnswer == 'H':
                 gender = "male"
             else:
                 gender = "female"
@@ -300,7 +313,7 @@ def main():
         playGame()
 
     except KeyboardInterrupt:
-        print("\nGame terminated by player")
+        print("\nJogo terminado pelo jogador")
 
     # We're finished.
     return
